@@ -3,7 +3,7 @@ with pkgs;
 let
   versionForFile = v: builtins.replaceStrings ["."] [""] v;
 
-  mkPianoteq = { name, src, version, ... }:
+  mkPianoteq = { name, src, version, archdir, ... }:
     stdenv.mkDerivation rec {
       inherit src version;
 
@@ -19,6 +19,7 @@ let
       ];
 
       buildInputs = [
+        stdenv.cc.cc.lib
         xorg.libX11      # libX11.so.6
         xorg.libXext     # libXext.so.6
         alsaLib          # libasound.so.2
@@ -27,7 +28,7 @@ let
 
       installPhase = ''
         mkdir -p $out/bin
-        mv -t $out/bin Pianoteq*/amd64/*
+        mv -t $out/bin Pianoteq*/${archdir}/*
       '';
 
       meta = with stdenv.lib; {
@@ -120,23 +121,26 @@ in {
   # TODO currently can't install more than one because `lame` clashes
   stage-trial = mkPianoteq rec {
     name = "stage-trial";
-    version = "6.7.3";
+    version = "7.0.3";
+    archdir = "x86-64bit";
     src = fetchPianoteqTrial {
       name = "pianoteq_stage_linux_trial_v${versionForFile version}.7z";
-      sha256 = "0wa2nz9h22iy6r632p9jjcbw1icjdmnbxn8yn4r53driydrz9fyf";
+      sha256 = "1cq4920f8frm8705b8wdr5hb40p26lasiz7wwsymww7gvqap38mj";
     };
   };
   standard-trial = mkPianoteq rec {
     name = "standard-trial";
-    version = "6.7.3";
+    version = "7.0.3";
+    archdir = "x86-64bit";
     src = fetchPianoteqTrial {
       name = "pianoteq_linux_trial_v${versionForFile version}.7z";
-      sha256 = "0yq0gwiq4rpkh61fwspgdg9v57m5apydnw3lassa09hfifmc0x4w";
+      sha256 = "1qbi0d5m0z1cwlhkbyjcvq1l7afij7lbwl8asmrih0d2xzgwxwvz";
     };
   };
   stage-6 = mkPianoteq rec {
     name = "stage";
     version = "6.7.3";
+    archdir = "amd64";
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";
