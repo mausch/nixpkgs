@@ -1380,6 +1380,8 @@ in
 
   ili2c = callPackage ../tools/misc/ili2c { };
 
+  ilspy = callPackage ../development/tools/ilspy { };
+
   imageworsener = callPackage ../tools/graphics/imageworsener { };
 
   imgpatchtools = callPackage ../development/mobile/imgpatchtools { };
