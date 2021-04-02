@@ -8,10 +8,11 @@
 , libarchive
 , libGL
 , xorg
+, zlib
 # Conda installs its packages and environments under this directory
 , installationPath ? "~/.conda"
 # Conda manages most pkgs itself, but expects a few to be on the system.
-, condaDeps ? [ stdenv.cc xorg.libSM xorg.libICE xorg.libX11 xorg.libXau xorg.libXi xorg.libXrender libselinux libGL ]
+, condaDeps ? [ stdenv.cc xorg.libSM xorg.libICE xorg.libX11 xorg.libXau xorg.libXi xorg.libXrender libselinux libGL zlib ]
 # Any extra nixpkgs you'd like available in the FHS env for Conda to use
 , extraPkgs ? [ ]
 }:
@@ -30,10 +31,10 @@
 # $ conda-shell
 # $ conda install spyder
 let
-  version = "4.6.14";
+  version = "4.9.2";
   src = fetchurl {
-      url = "https://repo.continuum.io/miniconda/Miniconda3-${version}-Linux-x86_64.sh";
-      sha256 = "1gn43z1y5zw4yv93q1qajwbmmqs83wx5ls5x4i4llaciba4j6sqd";
+      url = "https://repo.anaconda.com/miniconda/Miniconda3-py39_${version}-Linux-x86_64.sh";
+      sha256 = "0z5fvqiy4q9gwr85b2qpmqmh8pharr8vxx80i6lavcacn78ifs2k";
   };
 
   conda = runCommand "conda-install" { buildInputs = [ makeWrapper ]; }
