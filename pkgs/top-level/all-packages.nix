@@ -3399,6 +3399,8 @@ with pkgs;
 
   meritous = callPackage ../games/meritous { };
 
+  nominatim = callPackage ../servers/nominatim { };
+
   oh-my-git = callPackage ../games/oh-my-git { };
 
   opendune = callPackage ../games/opendune { };
