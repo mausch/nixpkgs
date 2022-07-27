@@ -14271,6 +14271,8 @@ with pkgs;
 
   devspace = callPackage ../development/tools/misc/devspace { };
 
+  mssql-tools = callPackage ../development/tools/database/mssql-tools { };
+
   maturin = callPackage ../development/tools/rust/maturin {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
